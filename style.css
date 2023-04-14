@@ -1,26 +1,40 @@
-body{
-
-color: greenyellow;
-background: dodgerblue;
-
-
+body
+{
+    background-color: goldenrod;
 }
 
-.heading{
-
- width: 80%;
- font-size: 22px;
-}
-
-.name_of_objects
+h1
 {
     color: red;
+    background-color: burlywood;
+
 }
 
-#result_object_name, #result_object_name
+#toggle
 {
+    
 
-    color: lawngreen;
+}
 
+label
+{
+    padding-top: 10px;
+    font-size: 23px;
 
+}
+
+canvas
+{
+    border: 5px solid red;
+    border-radius: 20px;
+    animation-name: people;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    margin-top: 160px;
+    
+}
+@keyframes people
+{
+    from{box-shadow: 1px 1px 38px green;}
+    to{box-shadow: 1px 1px 38px yellow;}
 }

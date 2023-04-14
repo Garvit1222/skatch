@@ -1,51 +1,53 @@
-Webcam.set({
-width:350,
-height:300,
-image_format:'png',
-png_quality:90
-
-});
-
-camera = document.getElementById("camera");
-
-Webcam.attach(camera);
-
-function click_selfie()
+function setup()
 {
-   Webcam.snap(function(data_uri)
-   {
-      document.getElementById("result").innerHTML = '<img id="image" src="'+data_uri+'"/> '; 
-   });
+    canvas= createCanvas(300,350);
+    canvas.center();
+    background("blue");
+    canvas.mouseReleased(classifyCanvas);
+    synth = window.speechSynthesis;
+}
+
+function preload()
+{
+    classifier = ml5.imageClassifier('DoodleNet');
 
 }
 
-console.log('ml5version',ml5.version);
-
-classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/wCjdXw1SI/model.json', model_Loaded);
-
-function model_Loaded()
+function draw()
 {
-    console.log('modelloaded');
-}
-
-function check()
-{
-   img = document.getElementById("image");
-   classifier.classify(img,got_result);
-}
-
-function got_result(error,results)
-{
-    if(error){
-      console.error(error);
+    strokeWeight(13);
+    stroke(0);
+    if (mouseIsPressed) {
+        line(pmouseX , pmouseY , mouseX , mouseY);
     }
+}
+
+function classifyCanvas()
+{
+    classifier.classify(canvas, gotResult);
+}
+
+function gotResult(error,results)
+{
+    if(error)
+      {
+        console.error(error);
+      }
 
     else
-    {
+      {
         console.log(results);
-        document.getElementById("result_object_name").innerHTML = results[0].label;
-        document.getElementById("result_object_accuracy").innerHTML = results[0].confidence.toFixed(3);
-        
-    }
+        document.getElementById("label_name").innerHTML = 'Label: ' + results[0].label;
 
+        document.getElementById("label_confidence").innerHTML = 'Confidence: ' + Math.round(results[0].confidence * 100) + '%';
+
+        utterThis = new SpeechSynthesisUtterance(results[0].label);
+        synth.speak(utterThis);
+      }
+      
+}
+
+function clear_Canvas()
+{
+    background('blue');
 }
