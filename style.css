@@ -1,0 +1,26 @@
+body{
+
+color: greenyellow;
+background: dodgerblue;
+
+
+}
+
+.heading{
+
+ width: 80%;
+ font-size: 22px;
+}
+
+.name_of_objects
+{
+    color: red;
+}
+
+#result_object_name, #result_object_name
+{
+
+    color: lawngreen;
+
+
+}
